@@ -2,16 +2,17 @@
 
 # TODO TIMELINE-API
 
-- Make database:
-  - Timeline
-  - Event
-  - Attachment
-  - Tag
+- [o] Make database:
+  - [X] Timeline
+  - [X] Event
+  - [ ] Attachment
+  - [ ] Tag
 
+- [X] Install and configure graphql
 
-- Install and configure graphql
-
-- Create Timeline and Events queries and mutations
+- [o] Create Timeline and Events queries and mutations
+  - [X] queries
+  - [ ] mutations
 
 
 

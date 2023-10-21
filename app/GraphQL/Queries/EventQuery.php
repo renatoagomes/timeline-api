@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Timeline;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
@@ -12,16 +11,16 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Query;
 use Rebing\GraphQL\Support\SelectFields;
 
-class TimelinesQuery extends Query
+class EventQuery extends Query
 {
     protected $attributes = [
-        'name' => 'timelines',
+        'name' => 'event',
         'description' => 'A query'
     ];
 
     public function type(): Type
     {
-        return Type::listOf(GraphQL::type('Timeline'));
+        return GraphQL::type('Event');
     }
 
     public function args(): array
@@ -29,16 +28,24 @@ class TimelinesQuery extends Query
         return [
             'id' => [
                 'type' => GraphQL::type('ID'),
-                'description' => 'The id of the timeline'
+                'description' => 'The id of the event'
             ],
             'name' => [
                 'type' => GraphQL::type('String'),
-                'description' => 'The name of timeline'
+                'description' => 'The name of event'
             ],
-            // 'events' => [
-            //     'type' => GraphQL::type('Event'),
-            //     'description' => 'The events of timeline'
-            // ],
+            'description' => [
+                'type' => GraphQL::type('String'),
+                'description' => 'The description of event'
+            ],
+            'start_date' => [
+                'type' => GraphQL::type('String'),
+                'description' => 'The start date of event'
+            ],
+            'end_date' => [
+                'type' => GraphQL::type('String'),
+                'description' => 'The end date of event'
+            ],
         ];
     }
 
@@ -49,8 +56,6 @@ class TimelinesQuery extends Query
         $select = $fields->getSelect();
         $with = $fields->getRelations();
 
-        $query = Timeline::with($with)->select($select);
-
-        return $query->get();
+        return Event::where('id', $args['id'])->first();
     }
 }

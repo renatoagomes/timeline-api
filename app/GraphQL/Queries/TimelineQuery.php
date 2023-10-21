@@ -35,18 +35,6 @@ class TimelineQuery extends Query
                 'type' => GraphQL::type('String'),
                 'description' => 'The name of timeline'
             ],
-            'description' => [
-                'type' => GraphQL::type('String'),
-                'description' => 'The description of timeline'
-            ],
-            'start_date' => [
-                'type' => GraphQL::type('String'),
-                'description' => 'The start date of timeline'
-            ],
-            'end_date' => [
-                'type' => GraphQL::type('String'),
-                'description' => 'The end date of timeline'
-            ],
         ];
     }
 
@@ -57,6 +45,6 @@ class TimelineQuery extends Query
         $select = $fields->getSelect();
         $with = $fields->getRelations();
 
-        return Timeline::where('id', $args['id'])->first();
+        return Timeline::with($with)->select($select)->first();
     }
 }
