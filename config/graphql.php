@@ -2,6 +2,10 @@
 
 declare(strict_types = 1);
 
+use App\GraphQL\Queries\TimelineQuery;
+use App\GraphQL\Queries\TimelinesQuery;
+use App\GraphQL\Types\TimelineType;
+
 return [
     'route' => [
         // The prefix for routes; do NOT use a leading slash!
@@ -35,54 +39,18 @@ return [
         'enable' => true,
     ],
 
-    // The schemas for query and/or mutation. It expects an array of schemas to provide
-    // both the 'query' fields and the 'mutation' fields.
-    //
-    // You can also provide a middleware that will only apply to the given schema
-    //
-    // Example:
-    //
-    //  'schemas' => [
-    //      'default' => [
-    //          'controller' => MyController::class . '@method',
-    //          'query' => [
-    //              App\GraphQL\Queries\UsersQuery::class,
-    //          ],
-    //          'mutation' => [
-    //
-    //          ]
-    //      ],
-    //      'user' => [
-    //          'query' => [
-    //              App\GraphQL\Queries\ProfileQuery::class,
-    //          ],
-    //          'mutation' => [
-    //
-    //          ],
-    //          'middleware' => ['auth'],
-    //      ],
-    //      'user/me' => [
-    //          'query' => [
-    //              App\GraphQL\Queries\MyProfileQuery::class,
-    //          ],
-    //          'mutation' => [
-    //
-    //          ],
-    //          'middleware' => ['auth'],
-    //      ],
-    //  ]
-    //
     'schemas' => [
         'default' => [
             'query' => [
-                // ExampleQuery::class,
+                TimelineQuery::class,
+                TimelinesQuery::class,
             ],
             'mutation' => [
                 // ExampleMutation::class,
             ],
             // The types only available in this schema
             'types' => [
-                // ExampleType::class,
+                TimelineType::class,
             ],
 
             // Laravel HTTP middleware
