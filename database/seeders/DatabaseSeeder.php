@@ -18,5 +18,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        \App\Models\Timeline::factory(5)->create()->each(function ($timeline) {
+            $timeline->events()->saveMany(\App\Models\Event::factory(10)->make());
+            $timeline->events()->saveMany(\App\Models\Event::factory(10)->make());
+        });
+
+
     }
 }
