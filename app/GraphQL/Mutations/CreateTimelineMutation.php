@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Mutations;
 
 use App\Models\Timeline;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
-use Rebing\GraphQL\Support\Query;
+use Rebing\GraphQL\Support\Mutation;
 use Rebing\GraphQL\Support\SelectFields;
 
-class TimelineQuery extends Query
+class CreateTimelineMutation extends Mutation
 {
     protected $attributes = [
-        'name' => 'timeline',
-        'description' => 'A query'
+        'name' => 'createTimeline',
+        'description' => 'A mutation'
     ];
 
     public function type(): Type
@@ -27,12 +27,8 @@ class TimelineQuery extends Query
     public function args(): array
     {
         return [
-            'id' => [
-                'type' => Type::nonNull(GraphQL::type('ID')),
-                'description' => 'The id of the timeline'
-            ],
             'name' => [
-                'type' => GraphQL::type('String'),
+                'type' => Type::nonNull(GraphQL::type('String')),
                 'description' => 'The name of timeline'
             ],
         ];
@@ -40,11 +36,6 @@ class TimelineQuery extends Query
 
     public function resolve($root, array $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
-        /** @var SelectFields $fields */
-        $fields = $getSelectFields();
-        $select = $fields->getSelect();
-        $with = $fields->getRelations();
-
-        return Timeline::with($with)->select($select)->where($args)->first();
+        return Timeline::create($args);
     }
 }

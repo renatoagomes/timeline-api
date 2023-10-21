@@ -2,6 +2,8 @@
 
 declare(strict_types = 1);
 
+use App\GraphQL\Mutations\CreateTimelineMutation;
+use App\GraphQL\Mutations\CreateEventMutation;
 use App\GraphQL\Queries\EventQuery;
 use App\GraphQL\Queries\EventsQuery;
 use App\GraphQL\Queries\TimelineQuery;
@@ -51,7 +53,8 @@ return [
                 EventsQuery::class,
             ],
             'mutation' => [
-                // ExampleMutation::class,
+                CreateTimelineMutation::class,
+                CreateEventMutation::class
             ],
             // The types only available in this schema
             'types' => [
