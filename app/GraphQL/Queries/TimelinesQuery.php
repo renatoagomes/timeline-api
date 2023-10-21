@@ -49,7 +49,13 @@ class TimelinesQuery extends Query
         $select = $fields->getSelect();
         $with = $fields->getRelations();
 
-        $query = Timeline::with($with)->select($select);
+        logger(__METHOD__, [
+            'select' => $select,
+            'with' => $with,
+            'args' => $args
+        ]);
+
+        $query = Timeline::with($with)->select($select)->where($args);
 
         return $query->get();
     }

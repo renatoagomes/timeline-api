@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Types;
 
 use App\Models\Event;
+use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
@@ -20,7 +21,7 @@ class EventType extends GraphQLType
     {
         return [
             'id' => [
-                'type' => GraphQL::type('ID'),
+                'type' => Type::nonNull(GraphQL::type('ID')),
                 'description' => 'The id of the event'
             ],
             'title' => [
@@ -33,7 +34,7 @@ class EventType extends GraphQLType
             ],
             'start_date' => [
                 'type' => GraphQL::type('String'),
-                'description' => 'The start date of event'
+                'description' => 'The start date of event',
             ],
             'end_date' => [
                 'type' => GraphQL::type('String'),

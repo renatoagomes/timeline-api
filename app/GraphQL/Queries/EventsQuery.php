@@ -27,10 +27,10 @@ class EventsQuery extends Query
     public function args(): array
     {
         return [
-            'id' => [
-                'type' => GraphQL::type('ID'),
-                'description' => 'The id of the event'
-            ],
+            // 'id' => [
+            //     'type' => GraphQL::type('ID'),
+            //     'description' => 'The id of the event'
+            // ],
             'title' => [
                 'type' => GraphQL::type('String'),
                 'description' => 'The name of event'
@@ -60,7 +60,27 @@ class EventsQuery extends Query
         $fields = $getSelectFields();
         $select = $fields->getSelect();
         $with = $fields->getRelations();
+        $query = Event::query()->select($select)->with($with);
 
-        return Event::query()->select($select)->with($with)->where($args)->get();
+        if (isset($args['timeline_id'])) {
+            $query->where('timeline_id', $args['timeline_id']);
+        }
+        if (isset($args['id'])) {
+            $query->where('id', $args['id']);
+        }
+        if (isset($args['title'])) {
+            $query->where('title', 'like', "%".$args['title']."%");
+        }
+        if (isset($args['description'])) {
+            $query->where('description', 'like', "%".$args['description']."%");
+        }
+        if (isset($args['start_date'])) {
+            $query->whereDate('start_date', '>=', $args['start_date']);
+        }
+        if (isset($args['end_date'])) {
+            $query->where('end_date', '<=', $args['end_date']);
+        }
+
+        return $query->get();
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries;
 
+use App\Models\Event;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
@@ -27,25 +28,25 @@ class EventQuery extends Query
     {
         return [
             'id' => [
-                'type' => GraphQL::type('ID'),
-                'description' => 'The id of the event'
+                'type' => Type::nonNull(GraphQL::type('ID')),
+                'description' => 'The id of the event',
             ],
-            'name' => [
-                'type' => GraphQL::type('String'),
-                'description' => 'The name of event'
-            ],
-            'description' => [
-                'type' => GraphQL::type('String'),
-                'description' => 'The description of event'
-            ],
-            'start_date' => [
-                'type' => GraphQL::type('String'),
-                'description' => 'The start date of event'
-            ],
-            'end_date' => [
-                'type' => GraphQL::type('String'),
-                'description' => 'The end date of event'
-            ],
+            // 'name' => [
+            //     'type' => GraphQL::type('String'),
+            //     'description' => 'The name of event'
+            // ],
+            // 'description' => [
+            //     'type' => GraphQL::type('String'),
+            //     'description' => 'The description of event'
+            // ],
+            // 'start_date' => [
+            //     'type' => GraphQL::type('String'),
+            //     'description' => 'The start date of event'
+            // ],
+            // 'end_date' => [
+            //     'type' => GraphQL::type('String'),
+            //     'description' => 'The end date of event'
+            // ],
         ];
     }
 
@@ -55,7 +56,12 @@ class EventQuery extends Query
         $fields = $getSelectFields();
         $select = $fields->getSelect();
         $with = $fields->getRelations();
+        $query = Event::query()->select($select)->with($with);
 
-        return Event::where('id', $args['id'])->first();
+        if (isset($args['id'])) {
+            $query->where('id', $args['id']);
+        }
+
+        return $query->first();
     }
 }

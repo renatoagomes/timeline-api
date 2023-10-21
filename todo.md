@@ -8,7 +8,7 @@
   - [ ] Attachment
   - [ ] Tag
 
-- [X] Install and configure graphql
+- [X] Install nd configure graphql
 
 - [o] Create Timeline and Events queries and mutations
   - [X] queries
