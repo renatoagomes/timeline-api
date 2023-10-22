@@ -2,8 +2,11 @@
 
 declare(strict_types = 1);
 
+use App\GraphQL\Inputs\UpdateEventInput;
 use App\GraphQL\Mutations\CreateTimelineMutation;
 use App\GraphQL\Mutations\CreateEventMutation;
+use App\GraphQL\Mutations\UpdateEventMutation;
+use App\GraphQL\Mutations\UpdateTimelineMutation;
 use App\GraphQL\Queries\EventQuery;
 use App\GraphQL\Queries\EventsQuery;
 use App\GraphQL\Queries\TimelineQuery;
@@ -54,12 +57,15 @@ return [
             ],
             'mutation' => [
                 CreateTimelineMutation::class,
-                CreateEventMutation::class
+                CreateEventMutation::class,
+                UpdateTimelineMutation::class,
+                UpdateEventMutation::class
             ],
             // The types only available in this schema
             'types' => [
                 TimelineType::class,
                 EventType::class,
+                UpdateEventInput::class,
             ],
 
             // Laravel HTTP middleware
