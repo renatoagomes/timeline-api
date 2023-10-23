@@ -9,9 +9,12 @@ use App\GraphQL\Mutations\UpdateEventMutation;
 use App\GraphQL\Mutations\UpdateTimelineMutation;
 use App\GraphQL\Queries\EventQuery;
 use App\GraphQL\Queries\EventsQuery;
+use App\GraphQL\Queries\TagQuery;
+use App\GraphQL\Queries\TagsQuery;
 use App\GraphQL\Queries\TimelineQuery;
 use App\GraphQL\Queries\TimelinesQuery;
 use App\GraphQL\Types\EventType;
+use App\GraphQL\Types\TagType;
 use App\GraphQL\Types\TimelineType;
 
 return [
@@ -54,6 +57,8 @@ return [
                 TimelinesQuery::class,
                 EventQuery::class,
                 EventsQuery::class,
+                TagsQuery::class,
+                TagQuery::class
             ],
             'mutation' => [
                 CreateTimelineMutation::class,
@@ -66,6 +71,7 @@ return [
                 TimelineType::class,
                 EventType::class,
                 UpdateEventInput::class,
+                TagType::class
             ],
 
             // Laravel HTTP middleware

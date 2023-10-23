@@ -38,6 +38,10 @@ class UpdateEventInput extends InputType
                 'type' => GraphQL::type('String'),
                 'description' => 'The date of event'
             ],
+            // 'tags' => [
+            //     'type' => Type::listOf(GraphQL::type('Tag')),
+            //     'description' => 'The tags of event'
+            // ],
         ];
     }
 }

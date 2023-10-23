@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             $timeline->events()->saveMany(\App\Models\Event::factory(20)->make(['timeline_id' => $timeline->id]));
         });
 
+        \App\Models\Tag::factory(10)->create();
+
 
     }
 }

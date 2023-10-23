@@ -48,6 +48,10 @@ class EventType extends GraphQLType
                 'type' => GraphQL::type('Timeline'),
                 'description' => 'The timeline of event'
             ],
+            'tags' => [
+                'type' => Type::listOf(GraphQL::type('Tag')),
+                'description' => 'The tags of event'
+            ],
         ];
     }
 }
